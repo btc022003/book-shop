@@ -1,0 +1,20 @@
+{
+  "name": "book-shop",
+  "version": "1.0.0",
+  "description": "在线书城",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "express",
+    "nodejs",
+    "book-shop"
+  ],
+  "author": "arivin",
+  "license": "ISC",
+  "dependencies": {
+    "crawler": "^1.0.2",
+    "mongoose": "^4.7.6"
+  }
+}
