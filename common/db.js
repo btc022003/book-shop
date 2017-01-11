@@ -5,30 +5,19 @@ mongoose.connect("mongodb://localhost/student_db")
 
 var Schema = mongoose.Schema
 
-//创建学生模型
-var studentSchema = new Schema({
+//创建书籍分类数据结构
+var bookTypeSchema = new Schema({
 	name:String,
-	gender:String,
-	age:Number,
-	hobby:String
+	code:String,
+	url:String,
+	page_count:NUmber
 })
-var Student = mongoose.model("student",studentSchema)
-
-var db = {}	//创建一个空对象,用于最终进行模块导出
-
-/**
- * 从文件中读取数据
- * @param  {String}	  searchName [查询条件name]
- * @param  {Function} callback [回调函数]
- * @return {[type]}            [void]
- */
-db.getData = function(searchName,callback){
-	var filter = {} //筛选条件
-	if(searchName){
-		// new RegExp() //创建一个正则表达式对象 此处的参数i表示不区分大小写
-		filter.name = {$regex:new RegExp(searchName,'i')}
-	}
-	Student.find(filter)
+var BookType = mongoose.model("book_type",bookSchema)
+//书籍分类的相关操作方法
+var db_book_type = {}
+db_book_type.getData = function(searchName,callback){
+	var filter = new RegExp(searchName,"i")
+	BookType.find(filter)
 		.then(res=>{
 			callback(res)
 		})
@@ -36,47 +25,62 @@ db.getData = function(searchName,callback){
 			console.log(err)
 		})
 }
-
-//保存数据到文件
-/**
- * 保存文件到数据
- * @param  {[type]}   model    [需要保存的数据]
- * @param  {Function} callback [回调函数]
- * @return {[type]}            [void]
- */
-db.save = function(model,callback){
-	var student = new Student(model)
-	console.log(student)
-	student.save()
+db_book_type.save = function(model,callback){
+	var data = new BookType(model)
+	data.save()
 		.then(callback(true))
 		.catch(err=>{
 			console.log(err)
 			callback(false)
 		})
 }
-/**
- * 根据id删除指定对象
- * @param  {int} delID    [需要删除的id]
- * @param  {[function]} callbacl [执行之后的回调函数]
- * @return {[type]}          [description]
- */
-db.del = function(delID,callback){
-	Student.findByIdAndRemove(delID)
+db_book_type.updateByID = function(id,model,callback){
+	BookType.findByIdAndUpdate('id',model)
 		.then(callback(true))
 		.catch(err=>{
 			console.log(err)
 			callback(false)
 		})
 }
+db_book_type.del = function(id,callback){
+	BookType.findByIdAndRemove(id)
+		.then(callback(true))
+		.catch(err=>{
+			console.log(err)
+			callback(false)
+		})
+}
+db_book_type.findByID = function(id,callback){
+	BookType.findById(id)
+		.then(res=>{
+			callback(res)
+		})
+		.catch(err=>{
+			console.log(err)
+			callback(null)
+		})
+}
 
-/**
- * 根据id查找元素
- * @param  {int}   id       [用于查找的id]
- * @param  {Function} callback [查找成功后的回调函数]
- * @return {[type]}            [description]
- */
-db.findByID = function(id,callback){
-	Student.findById(id)
+//创建book集合的数据结构
+var bookSchema = new Schema({
+    title:String,//标题
+    author:String,//作者
+    publisher:String,//出版社
+    img:String,//封面图
+    link:String,//链接
+    price:{
+        type:Number,
+        default:0
+    },//价格
+    type:String//分类
+})
+var Book = mongoose.model('book',bookSchema) //创建book模型
+
+//书籍分类的相关操作方法
+var db_book = {}
+db_book.getData = function(searchName,callback){
+	var filter = new RegExp(searchName,"i")
+	Book.find(filter)
 		.then(res=>{
 			callback(res)
 		})
@@ -84,21 +88,46 @@ db.findByID = function(id,callback){
 			console.log(err)
 		})
 }
-
-/**
- * 根据id进行修改
- * @param  {int}   id       需要修改的对象的id
- * @param  {Object}   data     修改后的属性信息
- * @param  {Function} callback 回调函数
- * @return {void}            无返回值
- */
-db.updateByID = function(id,data,callback){
-	Student.findByIdAndUpdate(id,data)
+db_book.save = function(model,callback){
+	var data = new db_book(model)
+	data.save()
 		.then(callback(true))
 		.catch(err=>{
 			console.log(err)
 			callback(false)
 		})
 }
+db_book.updateByID = function(id,model,callback){
+	db_book.findByIdAndUpdate('id',model)
+		.then(callback(true))
+		.catch(err=>{
+			console.log(err)
+			callback(false)
+		})
+}
+db_book.del = function(id,callback){
+	db_book.findByIdAndRemove(id)
+		.then(callback(true))
+		.catch(err=>{
+			console.log(err)
+			callback(false)
+		})
+}
+db_book.findByID = function(id,callback){
+	db_book.findById(id)
+		.then(res=>{
+			callback(res)
+		})
+		.catch(err=>{
+			console.log(err)
+			callback(null)
+		})
+}
 
+var db = {}
+db.dal_book = book //导出book操作相关的方法
+db.dal_book_type = book_type //导出book_type操作相关的方法
 module.exports = db
+
+
+
