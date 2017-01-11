@@ -9,10 +9,10 @@ var Schema = mongoose.Schema
 
 //创建书籍分类数据结构
 var bookTypeSchema = new Schema({
-	name:String,
-	code:String,
-	url:String,
-	page_count:Number
+    name:String,
+    code:String,
+    url:String,
+    page_count:Number
 })
 var BookType = mongoose.model("book_type",bookTypeSchema)
 //书籍分类的相关操作方法
@@ -24,18 +24,18 @@ var db_book_type = {}
  * @return {[type]}              [description]
  */
 db_book_type.getData = function(searchName,callback){
-	var filter = {}
-	if(searchName){
-		filter.name = new RegExp(searchName,"i")
-	}
-	BookType.find(filter)
-		.sort({_id:-1})
-		.then(res=>{
-			callback(res)
-		})
-		.catch(err=>{
-			console.log(err)
-		})
+    var filter = {}
+    if(searchName){
+        filter.name = new RegExp(searchName,"i")
+    }
+    BookType.find(filter)
+        .sort({_id:-1})
+        .then(res=>{
+            callback(res)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
 }
 /**
  * 保存数据
@@ -44,13 +44,13 @@ db_book_type.getData = function(searchName,callback){
  * @return {[type]}            [description]
  */
 db_book_type.save = function(model,callback){
-	var data = new BookType(model)
-	data.save()
-		.then(callback(true))
-		.catch(err=>{
-			console.log(err)
-			callback(false)
-		})
+    var data = new BookType(model)
+    data.save()
+        .then(callback(true))
+        .catch(err=>{
+            console.log(err)
+            callback(false)
+        })
 }
 /**
  * 根据id更新记录
@@ -60,12 +60,12 @@ db_book_type.save = function(model,callback){
  * @return {[type]}            [description]
  */
 db_book_type.updateByID = function(id,model,callback){
-	BookType.findByIdAndUpdate(id,model)
-		.then(callback(true))
-		.catch(err=>{
-			console.log(err)
-			callback(false)
-		})
+    BookType.findByIdAndUpdate(id,model)
+        .then(callback(true))
+        .catch(err=>{
+            console.log(err)
+            callback(false)
+        })
 }
 /**
  * 根据id删除指定的记录
@@ -74,12 +74,12 @@ db_book_type.updateByID = function(id,model,callback){
  * @return {[type]}            [description]
  */
 db_book_type.del = function(id,callback){
-	BookType.findByIdAndRemove(id)
-		.then(callback(true))
-		.catch(err=>{
-			console.log(err)
-			callback(false)
-		})
+    BookType.findByIdAndRemove(id)
+        .then(callback(true))
+        .catch(err=>{
+            console.log(err)
+            callback(false)
+        })
 }
 /**
  * 根据id查找单条记录
@@ -88,14 +88,14 @@ db_book_type.del = function(id,callback){
  * @return {[type]}            [description]
  */
 db_book_type.findByID = function(id,callback){
-	BookType.findById(id)
-		.then(res=>{
-			callback(res)
-		})
-		.catch(err=>{
-			console.log(err)
-			callback(null)
-		})
+    BookType.findById(id)
+        .then(res=>{
+            callback(res)
+        })
+        .catch(err=>{
+            console.log(err)
+            callback(null)
+        })
 }
 
 //创建book集合的数据结构
@@ -113,63 +113,63 @@ var bookSchema = new Schema({
 })
 // 通过virtual创建虚拟链接
 bookSchema.virtual('book_type',{
-	ref:"book_type",
-	localField:"type",
-	foreignField:"code"
+    ref:"book_type",
+    localField:"type",
+    foreignField:"code"
 })
 var Book = mongoose.model('book',bookSchema) //创建book模型
 
 //书籍分类的相关操作方法
 var db_book = {}
 db_book.getData = function(searchName,callback){
-	var filter = {}
-	if(searchName){
-		filter.title = new RegExp(searchName,"i")
-	}
-	Book.find(filter)
-		.populate('book_type')
-		.sort({_id:-1})
-		.then(res=>{
-			callback(res)
-		})
-		.catch(err=>{
-			console.log(err)
-		})
+    var filter = {}
+    if(searchName){
+        filter.title = new RegExp(searchName,"i")
+    }
+    Book.find(filter)
+        .populate('book_type')
+        .sort({_id:-1})
+        .then(res=>{
+            callback(res)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
 }
 db_book.save = function(model,callback){
-	var data = new Book(model)
-	data.save()
-		.then(callback(true))
-		.catch(err=>{
-			console.log(err)
-			callback(false)
-		})
+    var data = new Book(model)
+    data.save()
+        .then(callback(true))
+        .catch(err=>{
+            console.log(err)
+            callback(false)
+        })
 }
 db_book.updateByID = function(id,model,callback){
-	Book.findByIdAndUpdate(id,model)
-		.then(callback(true))
-		.catch(err=>{
-			console.log(err)
-			callback(false)
-		})
+    Book.findByIdAndUpdate(id,model)
+        .then(callback(true))
+        .catch(err=>{
+            console.log(err)
+            callback(false)
+        })
 }
 db_book.del = function(id,callback){
-	Book.findByIdAndRemove(id)
-		.then(callback(true))
-		.catch(err=>{
-			console.log(err)
-			callback(false)
-		})
+    Book.findByIdAndRemove(id)
+        .then(callback(true))
+        .catch(err=>{
+            console.log(err)
+            callback(false)
+        })
 }
 db_book.findByID = function(id,callback){
-	Book.findById(id)
-		.then(res=>{
-			callback(res)
-		})
-		.catch(err=>{
-			console.log(err)
-			callback(null)
-		})
+    Book.findById(id)
+        .then(res=>{
+            callback(res)
+        })
+        .catch(err=>{
+            console.log(err)
+            callback(null)
+        })
 }
 
 var db = {}
