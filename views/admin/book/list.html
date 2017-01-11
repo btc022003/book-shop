@@ -68,6 +68,34 @@
                                 {{/each}}
                             </tbody>
                         </table>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="dataTables_info">共{{pageCount}}页数据</div>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="dataTables_paginate paging_simple_numbers">
+                                    <ul class="pagination">
+                                        <li class="paginate_button previous disabled">
+                                            <a href="#">上一页</a>
+                                        </li>
+                                        {{each pages}}
+                                        {{if $value==pageIndex}}
+                                        <li class="paginate_button active">
+                                            <a href="#">{{$value}}</a>
+                                        </li>
+                                        {{else}}
+                                        <li class="paginate_button">
+                                            <a href="/admin/book/list/{{$value}}">{{$value}}</a>
+                                        </li>
+                                        {{/if}}
+                                        {{/each}}
+                                        <li class="paginate_button next">
+                                            <a href="#">下一页</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

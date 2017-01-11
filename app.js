@@ -3,6 +3,9 @@ var bodyParser = require('body-parser')
 var log = require('morgan')
 var cookieParser = require('cookie-parser')
 
+//全局加载tools模块
+global.tools = require('./common/tools')
+
 var app = express()
 
 app.use(log('dev')) //终端日志输出

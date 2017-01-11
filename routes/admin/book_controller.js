@@ -4,15 +4,38 @@ var router = express.Router()
 var dalBook = require('../../common/db').dal_book
 var dalBookType = require('../../common/db').dal_book_type
 
-router.get('/list',(req,res)=>{
+// :page? 可选参数page用于记录当前显示哪一页的数据
+router.get('/list/:page?',(req,res)=>{
 	var searchName = ""
 	if(req.query.bookName){
 		searchName = req.query.bookName //获取查询条件
 	}
-	dalBook.getData(searchName,data=>{
-		// console.log(data[0].book_type)
-		res.render('admin/book/list',{list:data,query:req.query})
+
+	var page = 1 //当前显示第几页的数据
+	if(req.params.page){
+		page = req.params.page
+	}
+
+	dalBook.getDataByPage(page,{},data=>{
+		// console.log(data)
+		var arrPages = global.tools.getPagesArr(page,data.pageCount) //生成分页页码数组
+		// for(var i=1;i<=data.pageCount;i++){
+		// 	arrPages.push(i)
+		// }
+		// console.log(arrPages)
+		res.render('admin/book/list',{
+			list:data.res,
+			pages:arrPages, //页面中显示的分页页码
+			pageCount:data.pageCount, //总页数
+			pageIndex:page, //当前页码
+			query:req.query
+		})
 	})
+
+	// dalBook.getData(searchName,data=>{
+	// 	// console.log(data[0].book_type)
+	// 	res.render('admin/book/list',{list:data,query:req.query})
+	// })
 })
 
 // 新增页面

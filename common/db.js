@@ -113,14 +113,44 @@ var bookSchema = new Schema({
 })
 // 通过virtual创建虚拟链接
 bookSchema.virtual('book_type',{
-    ref:"book_type",
-    localField:"type",
-    foreignField:"code"
+    ref:"book_type", //需要关联的集合
+    localField:"type", //本集合中的字段
+    foreignField:"code" //被关联结合中的字段
 })
 var Book = mongoose.model('book',bookSchema) //创建book模型
 
 //书籍分类的相关操作方法
 var db_book = {}
+/**
+ * 分页取数据
+ * @param  {[type]}   page     当前页码
+ * @param  {[type]}   filter   查询条件
+ * @param  {Function} callback 回调函数
+ * @return {[type]}            [description]
+ */
+db_book.getDataByPage = function(page,filter,callback){
+	var pageSize = 3 //每页显示的数量
+	Book.count(filter) //统计记录数量
+		.then(count=>{
+			// console.log(count)
+			var pageCount = Math.ceil(count/pageSize)
+			if(page>pageCount){ //防止页码超出范围
+				page=pageCount
+			}
+			Book.find({}) //根据条件进行查询
+				.limit(pageSize)
+				.skip(pageSize*(page-1))
+				.populate('book_type')
+				.sort({_id:-1})
+				.then(res=>{
+					//返回两个数据 总页数和查询结果
+					callback({pageCount:pageCount,res:res})
+				})
+				.catch(err=>{
+					console.log(err)
+				})
+		})
+}
 db_book.getData = function(searchName,callback){
     var filter = {}
     if(searchName){
