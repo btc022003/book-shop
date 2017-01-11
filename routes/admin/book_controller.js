@@ -1,8 +1,13 @@
 // 用来处理书籍信息的页面关系
 var express = require('express')
 var router = express.Router()
-var dalBook = require('../../common/db').dal_book
-var dalBookType = require('../../common/db').dal_book_type
+
+var BookTypeDal = require('../../common/book_type').BookTypeDal
+var BookDal = require('../../common/book').BookDal
+var dalBook = new BookDal()
+var dalBookType = new BookTypeDal()
+// var dalBook = require('../../common/db').dal_book
+// var dalBookType = require('../../common/db').dal_book_type
 
 // :page? 可选参数page用于记录当前显示哪一页的数据
 router.get('/list/:page?',(req,res)=>{
@@ -13,7 +18,7 @@ router.get('/list/:page?',(req,res)=>{
 
 	var page = 1 //当前显示第几页的数据
 	if(req.params.page){
-		page = req.params.page
+		page = Number(req.params.page)
 	}
 
 	dalBook.getDataByPage(page,{},data=>{

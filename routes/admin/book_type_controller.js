@@ -1,7 +1,9 @@
 // 用来处理书籍分类信息的页面关系
 var express = require('express')
 var router = express.Router()
-var db = require('../../common/db').dal_book_type //引入数据处理文件
+// var db = require('../../common/db').dal_book_type //引入数据处理文件
+var BookTypeDal = require('../../common/book_type').BookTypeDal
+var db = new BookTypeDal()
 // 列表数据
 router.get('/list',(req,res)=>{
 	var searchName = ''

@@ -10,6 +10,38 @@ class DBBase{
     constructor(model){
         this.model = model
     }
+
+    /**
+     * 分页取数据
+     * @param  {[type]}   page     当前页码
+     * @param  {[type]}   filter   查询条件
+     * @param  {Function} callback 回调函数
+     * @return {[type]}            [description]
+     */
+    getDataByPage(page,filter,callback){
+        var pageSize = 3 //每页显示的数量
+        this.model.count(filter) //统计记录数量
+            .then(count=>{
+                // console.log(count)
+                var pageCount = Math.ceil(count/pageSize)
+                if(page>pageCount){ //防止页码超出范围
+                    page=pageCount
+                }
+                this.model.find({}) //根据条件进行查询
+                    .limit(pageSize)
+                    .skip(pageSize*(page-1))
+                    .populate('book_type')
+                    .sort({_id:-1})
+                    .then(res=>{
+                        //返回两个数据 总页数和查询结果
+                        callback({pageCount:pageCount,res:res})
+                    })
+                    .catch(err=>{
+                        console.log(err)
+                    })
+            })
+    }
+
     /**
      * 根据查询条件取数据
      * @param  {[type]}   filter   查询条件
