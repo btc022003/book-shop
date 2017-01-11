@@ -16,7 +16,10 @@ var BookType = mongoose.model("book_type",bookTypeSchema)
 //书籍分类的相关操作方法
 var db_book_type = {}
 db_book_type.getData = function(searchName,callback){
-	var filter = new RegExp(searchName,"i")
+	var filter = {}
+	if(searchName){
+		filter.title = new RegExp(searchName,"i")
+	}
 	BookType.find(filter)
 		.sort({_id:-1})
 		.then(res=>{
@@ -80,7 +83,10 @@ var Book = mongoose.model('book',bookSchema) //创建book模型
 //书籍分类的相关操作方法
 var db_book = {}
 db_book.getData = function(searchName,callback){
-	var filter = new RegExp(searchName,"i")
+	var filter = {}
+	if(searchName){
+		filter.title = new RegExp(searchName,"i")
+	}
 	Book.find(filter)
 		.sort({_id:-1})
 		.then(res=>{
