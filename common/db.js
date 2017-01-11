@@ -1,6 +1,8 @@
 //创建数据库部分内容
 var mongoose = require('mongoose')
 
+mongoose.Promise = global.Promise
+
 mongoose.connect("mongodb://localhost/book_shop")
 
 var Schema = mongoose.Schema
@@ -15,10 +17,16 @@ var bookTypeSchema = new Schema({
 var BookType = mongoose.model("book_type",bookTypeSchema)
 //书籍分类的相关操作方法
 var db_book_type = {}
+/**
+ * 根据条件查询数据
+ * @param  {[type]}   searchName 查询条件
+ * @param  {Function} callback   回调函数
+ * @return {[type]}              [description]
+ */
 db_book_type.getData = function(searchName,callback){
 	var filter = {}
 	if(searchName){
-		filter.title = new RegExp(searchName,"i")
+		filter.name = new RegExp(searchName,"i")
 	}
 	BookType.find(filter)
 		.sort({_id:-1})
@@ -29,6 +37,12 @@ db_book_type.getData = function(searchName,callback){
 			console.log(err)
 		})
 }
+/**
+ * 保存数据
+ * @param  {[type]}   model    需要保存的内容
+ * @param  {Function} callback 回调函数
+ * @return {[type]}            [description]
+ */
 db_book_type.save = function(model,callback){
 	var data = new BookType(model)
 	data.save()
@@ -38,6 +52,13 @@ db_book_type.save = function(model,callback){
 			callback(false)
 		})
 }
+/**
+ * 根据id更新记录
+ * @param  {[type]}   id       需要更新的记录id
+ * @param  {[type]}   model    需要更新的数据
+ * @param  {Function} callback 回调函数
+ * @return {[type]}            [description]
+ */
 db_book_type.updateByID = function(id,model,callback){
 	BookType.findByIdAndUpdate(id,model)
 		.then(callback(true))
@@ -46,6 +67,12 @@ db_book_type.updateByID = function(id,model,callback){
 			callback(false)
 		})
 }
+/**
+ * 根据id删除指定的记录
+ * @param  {[type]}   id       需要删除的id
+ * @param  {Function} callback 回调函数
+ * @return {[type]}            [description]
+ */
 db_book_type.del = function(id,callback){
 	BookType.findByIdAndRemove(id)
 		.then(callback(true))
@@ -54,6 +81,12 @@ db_book_type.del = function(id,callback){
 			callback(false)
 		})
 }
+/**
+ * 根据id查找单条记录
+ * @param  {[type]}   id       查询id
+ * @param  {Function} callback 回调函数
+ * @return {[type]}            [description]
+ */
 db_book_type.findByID = function(id,callback){
 	BookType.findById(id)
 		.then(res=>{
@@ -78,6 +111,12 @@ var bookSchema = new Schema({
     },//价格
     type:String//分类
 })
+// 通过virtual创建虚拟链接
+bookSchema.virtual('book_type',{
+	ref:"book_type",
+	localField:"type",
+	foreignField:"code"
+})
 var Book = mongoose.model('book',bookSchema) //创建book模型
 
 //书籍分类的相关操作方法
@@ -88,6 +127,7 @@ db_book.getData = function(searchName,callback){
 		filter.title = new RegExp(searchName,"i")
 	}
 	Book.find(filter)
+		.populate('book_type')
 		.sort({_id:-1})
 		.then(res=>{
 			callback(res)

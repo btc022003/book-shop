@@ -10,6 +10,7 @@ router.get('/list',(req,res)=>{
 		searchName = req.query.bookName //获取查询条件
 	}
 	dalBook.getData(searchName,data=>{
+		// console.log(data[0].book_type)
 		res.render('admin/book/list',{list:data,query:req.query})
 	})
 })
