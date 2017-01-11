@@ -47,9 +47,11 @@ router.post('/del',(req,res)=>{
 //修改指定的记录
 router.get('/edit/:id',(req,res)=>{
 	var id = req.params.id
-	dalBook.findByID(id,function(model){
-		//res.json(model)
-		res.render('admin/book/edit',{model:model})
+	dalBookType.getData("",data=>{
+		dalBook.findByID(id,function(model){
+			//res.json(model)
+			res.render('admin/book/edit',{model:model,types:data})
+		})
 	})
 })
 

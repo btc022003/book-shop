@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>书籍信息编辑</title>
+	{{include '../shared/_common_top'}}
+</head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">书籍信息修改-{{name}}</h3>
+			</div>
+			<div class="panel-body">
+				<form method="post" action="/admin/book/update/{{model.id}}" class="form-horizontal" role="form">
+				  <div class="form-group">
+				    <label class="col-sm-2 control-label">书名</label>
+				    <div class="col-sm-10">
+				    <!-- 在html5中 通过设置属性required实现必填 -->
+				      <input type="text" required class="form-control" name="title" value="{{model.title}}" placeholder="请输入名字">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				  	<label class="col-sm-2 control-label">作者</label>
+				  	<div class="col-sm-10">
+				  		<input type="text" required class="form-control" name="author" value="{{model.author}}" placeholder="请输入作者">
+				  	</div>
+				  </div>
+				  <div class="form-group">
+				  	<label class="col-sm-2 control-label">分类</label>
+				  	<div class="col-sm-10">
+				  		<select class="form-control" type="type" id="selType" name="type">
+				  			{{each types}}
+				  			<option value="{{$value.code}}">{{$value.name}}</option>
+				  			{{/each}}
+				  		</select>
+				  	</div>
+				  </div>
+				  <div class="form-group">
+				  	<label class="col-sm-2 control-label">价格</label>
+					<div class="col-sm-10">
+						<input type="number" name="price" class="form-control" value="{{model.price}}" placeholder="请输入价格">
+					</div>
+				  </div>
+				  <div class="form-group">
+				  	<label class="col-sm-2 control-label">图片</label>
+					<div class="col-sm-10">
+						<textarea name="img" placeholder="请输入图片" class="form-control" cols="30" rows="5">{{model.img}}</textarea>
+					</div>
+				  </div>
+				  <div class="form-group">
+				  	<label class="col-sm-2 control-label">出版社</label>
+				  	<div class="col-sm-10">
+				  		<input type="text" required class="form-control" name="publisher" value="{{model.publisher}}" placeholder="请输入出版社">
+				  	</div>
+				  </div>
+				  <div class="form-group">
+				  	<label class="col-sm-2 control-label">链接</label>
+					<div class="col-sm-10">
+						<textarea name="link" placeholder="请输入链接" class="form-control" cols="30" rows="5">{{model.link}}</textarea>
+					</div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-sm-offset-2 col-sm-10">
+				    <!-- type="submit" 的按钮点击之后会自动触发表单的提交事件 -->
+				      <button type="submit" class="btn btn-primary btn-block">保存</button>
+				    </div>
+				  </div>
+				</form>
+			</div>
+		</div>
+	</div>
+	{{include '../shared/_common_bottom'}}
+	<script type="text/javascript">
+		$(function(){
+			$('#selType').val('{{model.type}}')
+		})
+	</script>
+</body>
+</html>
