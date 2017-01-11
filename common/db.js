@@ -1,7 +1,7 @@
 //创建数据库部分内容
 var mongoose = require('mongoose')
 
-mongoose.connect("mongodb://localhost/student_db")
+mongoose.connect("mongodb://localhost/book_shop")
 
 var Schema = mongoose.Schema
 
@@ -10,9 +10,9 @@ var bookTypeSchema = new Schema({
 	name:String,
 	code:String,
 	url:String,
-	page_count:NUmber
+	page_count:Number
 })
-var BookType = mongoose.model("book_type",bookSchema)
+var BookType = mongoose.model("book_type",bookTypeSchema)
 //书籍分类的相关操作方法
 var db_book_type = {}
 db_book_type.getData = function(searchName,callback){
@@ -125,8 +125,8 @@ db_book.findByID = function(id,callback){
 }
 
 var db = {}
-db.dal_book = book //导出book操作相关的方法
-db.dal_book_type = book_type //导出book_type操作相关的方法
+db.dal_book = db_book //导出book操作相关的方法
+db.dal_book_type = db_book_type //导出book_type操作相关的方法
 module.exports = db
 
 

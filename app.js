@@ -84,7 +84,7 @@ app.get('/admin/main',(req,res)=>{
 	res.render('admin/main')
 })
 
-
+app.use('/admin/book',require('./routes/admin/book_controller'))
 
 
 
