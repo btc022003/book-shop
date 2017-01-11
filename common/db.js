@@ -18,6 +18,7 @@ var db_book_type = {}
 db_book_type.getData = function(searchName,callback){
 	var filter = new RegExp(searchName,"i")
 	BookType.find(filter)
+		.sort({_id:-1})
 		.then(res=>{
 			callback(res)
 		})
@@ -35,7 +36,7 @@ db_book_type.save = function(model,callback){
 		})
 }
 db_book_type.updateByID = function(id,model,callback){
-	BookType.findByIdAndUpdate('id',model)
+	BookType.findByIdAndUpdate(id,model)
 		.then(callback(true))
 		.catch(err=>{
 			console.log(err)
@@ -81,6 +82,7 @@ var db_book = {}
 db_book.getData = function(searchName,callback){
 	var filter = new RegExp(searchName,"i")
 	Book.find(filter)
+		.sort({_id:-1})
 		.then(res=>{
 			callback(res)
 		})
@@ -89,7 +91,7 @@ db_book.getData = function(searchName,callback){
 		})
 }
 db_book.save = function(model,callback){
-	var data = new db_book(model)
+	var data = new Book(model)
 	data.save()
 		.then(callback(true))
 		.catch(err=>{
@@ -98,7 +100,7 @@ db_book.save = function(model,callback){
 		})
 }
 db_book.updateByID = function(id,model,callback){
-	db_book.findByIdAndUpdate('id',model)
+	Book.findByIdAndUpdate(id,model)
 		.then(callback(true))
 		.catch(err=>{
 			console.log(err)
@@ -106,7 +108,7 @@ db_book.updateByID = function(id,model,callback){
 		})
 }
 db_book.del = function(id,callback){
-	db_book.findByIdAndRemove(id)
+	Book.findByIdAndRemove(id)
 		.then(callback(true))
 		.catch(err=>{
 			console.log(err)
@@ -114,7 +116,7 @@ db_book.del = function(id,callback){
 		})
 }
 db_book.findByID = function(id,callback){
-	db_book.findById(id)
+	Book.findById(id)
 		.then(res=>{
 			callback(res)
 		})

@@ -42,6 +42,7 @@
                                     <th>序号</th>
                                     <th>图片</th>
                                     <th>书名</th>
+                                    <th>分类</th>
                                     <th>作者</th>
                                     <th>出版社</th>
                                     <th>操作</th>
@@ -52,7 +53,8 @@
                                 <tr>
                                     <td>{{$index+1}}</td>
                                     <td><img src="{{$value.img}}" style="width: 80px;"></td>
-                                    <td>{{$value.name}}</td>
+                                    <td>{{$value.title}}</td>
+                                    <td>{{$value.type}}</td>
                                     <td>{{$value.author}}</td>
                                     <td>{{$value.publisher}}</td>
                                     <td>

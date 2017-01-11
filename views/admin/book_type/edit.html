@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>分类信息编辑</title>
+	{{include '../shared/_common_top'}}
+</head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">分类信息修改-{{name}}</h3>
+			</div>
+			<div class="panel-body">
+				<form method="post" action="/admin/book_type/update/{{model.id}}" class="form-horizontal" role="form">
+				  <div class="form-group">
+				    <label class="col-sm-2 control-label">名字</label>
+				    <div class="col-sm-10">
+				    <!-- 在html5中 通过设置属性required实现必填 -->
+				      <input type="text" required class="form-control" name="name" value="{{model.name}}" placeholder="请输入名字">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				  	<label class="col-sm-2 control-label">编码</label>
+				  	<div class="col-sm-10">
+				  		<input type="text" required class="form-control" name="code" value="{{model.code}}" placeholder="请输入编码">
+				  	</div>
+				  </div>
+				  <div class="form-group">
+				  	<label class="col-sm-2 control-label">页数</label>
+					<div class="col-sm-10">
+						<input type="number" name="page_count" class="form-control" value="{{model.page_count}}" placeholder="请输入你的页数">
+					</div>
+				  </div>
+				  <div class="form-group">
+				  	<label class="col-sm-2 control-label">链接</label>
+					<div class="col-sm-10">
+						<textarea name="url" placeholder="请输入链接" class="form-control" value="{{model.url}}" cols="30" rows="5"></textarea>
+					</div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-sm-offset-2 col-sm-10">
+				    <!-- type="submit" 的按钮点击之后会自动触发表单的提交事件 -->
+				      <button type="submit" class="btn btn-primary btn-block">保存</button>
+				    </div>
+				  </div>
+				</form>
+			</div>
+		</div>
+	</div>
+	{{include '../shared/_common_bottom'}}
+</body>
+</html>
