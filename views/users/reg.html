@@ -75,7 +75,7 @@
                 <label class="weui-label">详细地址</label>
             </div>
             <div class="weui-cell__bd">
-                <input type="txtAddress" id="txtRePwd" class="weui-input" required placeholder="请再次输入详细地址">
+                <input type="text" id="txtAddress" class="weui-input" required placeholder="请再次输入详细地址">
             </div>
         </div>
     </div>
@@ -89,7 +89,7 @@
     <script>
     	new PCAS("province","city","area");
 		var regMobile = /^1[3857]{1}\d{9}$/
-		var regEmail = /^[A-Za-zd]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$ /
+		var regEmail = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/
 		$('#btnReg').click(function(){
 			var mobile = $('#txtMobile').val().trim()
 			var email = $('#txtEmail').val().trim()
@@ -104,12 +104,12 @@
 		        showTip("errTip","手机号码格式错误")
 		        return false
 		    }
-		    if(!regEmail.test(email)){
-		    	showTip("errTip","邮箱格式错误")
-		    	return false
-		    }
 		    if(name==""){
 		    	showTip("errTip","姓名不能为空")
+		    	return false
+		    }
+		    if(!regEmail.test(email)){
+		    	showTip("errTip","邮箱格式错误")
 		    	return false
 		    }
 		    if(pwd){
@@ -136,7 +136,7 @@
 		    	showTip("errTip","请选择省市区县数据")
 		    	return false
 		    }
-		    if(address=""){
+		    if(address==""){
 		    	showTip("errTip","请输入详细地址信息")
 		    	return false
 		    }

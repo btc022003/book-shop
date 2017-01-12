@@ -27,7 +27,7 @@ class DBBase{
                 if(page>pageCount){ //防止页码超出范围
                     page=pageCount
                 }
-                this.model.find({}) //根据条件进行查询
+                this.model.find(filter) //根据条件进行查询
                     .limit(pageSize)
                     .skip(pageSize*(page-1))
                     .populate('book_type')

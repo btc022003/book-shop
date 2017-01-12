@@ -11,9 +11,11 @@ var dalBookType = new BookTypeDal()
 
 // :page? 可选参数page用于记录当前显示哪一页的数据
 router.get('/list/:page?',(req,res)=>{
-	var searchName = ""
+	// var searchName = ""
+	var filter = {}
 	if(req.query.bookName){
-		searchName = req.query.bookName //获取查询条件
+		var searchName = req.query.bookName //获取查询条件
+		filter.name = new RegExp(searchName,"i")
 	}
 
 	var page = 1 //当前显示第几页的数据
@@ -21,7 +23,7 @@ router.get('/list/:page?',(req,res)=>{
 		page = Number(req.params.page)
 	}
 
-	dalBook.getDataByPage(page,{},data=>{
+	dalBook.getDataByPage(page,filter,data=>{
 		// console.log(data)
 		var arrPages = global.tools.getPagesArr(page,data.pageCount) //生成分页页码数组
 		// for(var i=1;i<=data.pageCount;i++){
