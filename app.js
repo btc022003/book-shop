@@ -90,7 +90,8 @@ app.get('/admin/main',(req,res)=>{
 app.use('/admin/book',require('./routes/admin/book_controller'))
 app.use('/admin/book_type',require('./routes/admin/book_type_controller'))
 
-
+//引入前台用户部分
+app.use('/',require('./routes/users'))
 
 
 app.listen('3000',()=>{
