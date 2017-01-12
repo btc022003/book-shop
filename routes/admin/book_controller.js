@@ -15,7 +15,7 @@ router.get('/list/:page?',(req,res)=>{
 	var filter = {}
 	if(req.query.bookName){
 		var searchName = req.query.bookName //获取查询条件
-		filter.name = new RegExp(searchName,"i")
+		filter.title = new RegExp(searchName,"i")
 	}
 
 	var page = 1 //当前显示第几页的数据

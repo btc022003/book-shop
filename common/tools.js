@@ -19,7 +19,7 @@ m.getPagesArr = function(page,pageCount){
 	 * 并且 当前的页码数组长度小于总的数组限制长度
 	 * 并且 左边的页码大于0或者右边的页面小于总页数
 	 */
-	while(page<=pageCount && arrPages.length<pageLength && (left>0 || right<pageCount)){
+	while(page<=pageCount && arrPages.length<pageLength && (left>0 || right<=pageCount)){
 		if(left>0){
 			arrPages.unshift(left)
 		}

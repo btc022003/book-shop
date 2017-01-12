@@ -6,12 +6,14 @@ var BookTypeDal = require('../../common/book_type').BookTypeDal
 var db = new BookTypeDal()
 // 列表数据
 router.get('/list',(req,res)=>{
-	var searchName = ''
+	// var searchName = ''
+	var filter = {}
 	if(req.query.name){
-		searchName = req.query.name
+		var searchName = req.query.name
+		filter.name = searchName
 	}
 	//取得已经存在的
-	db.getData(searchName,function(dataList){
+	db.getData(filter,function(dataList){
 		res.render('admin/book_type/list',{list:dataList,query:req.query})
 	})
 })

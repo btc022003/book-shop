@@ -27,6 +27,9 @@ class DBBase{
                 if(page>pageCount){ //防止页码超出范围
                     page=pageCount
                 }
+                if(page<=0){
+                    page = 1
+                }
                 this.model.find(filter) //根据条件进行查询
                     .limit(pageSize)
                     .skip(pageSize*(page-1))

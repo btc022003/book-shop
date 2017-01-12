@@ -1,3 +1,14 @@
 <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
 <script type="text/javascript" src="/admin/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/admin/js/content.js"></script>
+<script type="text/javascript">
+$(function() {
+    //////获取页面中分页部分的a标签,为href属性加入查询条件内容
+    $(".pagination a").each(function() {
+        var href = $(this).attr("href");
+        if (!!href && href != "#") {
+            $(this).attr("href", href + "?" + $("#mainForm").serialize());
+        }
+    })
+})
+</script>
