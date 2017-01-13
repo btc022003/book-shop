@@ -27,6 +27,7 @@ class DBBase{
                 if(page>pageCount){ //防止页码超出范围
                     page=pageCount
                 }
+                // 防止查询不到结果的时候page值变为0导致skip跳过的参数为负数
                 if(page<=0){
                     page = 1
                 }

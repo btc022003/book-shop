@@ -1,3 +1,6 @@
+html,body{
+	height: 100%;
+}
 .weui-toptips_success{
 	background-color:#09BB07;
 }
