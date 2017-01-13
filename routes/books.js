@@ -15,8 +15,18 @@ router.get('/types',(req,res)=>{
 
 //根据分类获取当前分类下的所有数据
 router.get('/list/:type',(req,res)=>{
-	dalBook.getData({type:req.params.type},books=>{
-		res.render('books/book_list',{books:books})
+	res.render('books/book_list',{type:req.params.type})
+})
+router.get('/list.json/:type/:page?',(req,res)=>{
+	var page = 1
+	if(req.params.page){
+		page = req.params.page
+	}
+	dalBook.getDataByPage(page,{type:req.params.type},data=>{
+		res.json({
+			status:'y',
+			data:data
+		})
 	})
 })
 
