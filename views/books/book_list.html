@@ -22,6 +22,7 @@
         var _type = '{{type}}' //当前的分类
         var _pageIndex = 1  //当前页码
         var _pageCount = 1  //总页数
+
         function loadData(){
             $.getJSON(`/books/list.json/${_type}/${_pageIndex}`,function(res){
                 if(res.status=="y"){
@@ -35,6 +36,7 @@
                                     <div class="weui-media-box__bd">
                                         <h4 class="weui-media-box__title">${item.title}</h4>
                                         <p class="weui-media-box__desc">${item.author}</p>
+                                        <p class="weui-media-box__desc"><button onclick="doBuy('${item.id}')" class="weui-btn weui-btn_mini weui-btn_warn">购买</button></p>
                                     </div>
                                 </a>`
                     })
@@ -52,5 +54,18 @@
             }
             loadData()
         })
+        function doBuy(id){
+            if({{isLogined}}){
+                ////执行购买操作
+                // alert('购买成功')
+                //通过jQuery.cookie插件获取cookie中的用户id
+                //在localStorage为当前用户添加一个购买信息
+                //[{user:"1",books:[{id:"1"},{id:"2"},{id:"3"}]},
+                //{user:"2",books:[{id:"1"},{id:"3"}]}]
+            }
+            else{
+                window.location.href = "/login"
+            }
+        }
     </script>
 </body>
