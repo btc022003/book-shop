@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    {{include '../shared/_header'}}
+</head>
+<body>
+<div class="weui-toptips weui-toptips_warn js_tooltips weui-icon-warn" id="errTip" style="display: none;">错误提示</div>
+<div class="weui-toptips weui-toptips_warn weui-toptips_success weui-icon-success js_tooltips" id="successTip" style="display: none;">注册成功</div>
+	<div class="weui-tab">
+		<div class="weui-tab__panel">
+		    <p>{{user.name}}</p>
+		    <p>{{user.mobile}}</p>
+		    <p>{{user.email}}</p>
+		</div>
+		{{include '../shared/_footer_nav'}}
+	 </div>
+
+    {{include '../shared/_bottom'}}
+</body>
+</html>

@@ -71,6 +71,8 @@ router.get('/usercenter',(req,res,next)=>{
 		if(req.cookies.userid){
 			userDal.findByID(req.cookies.userid,user=>{
 				if(user){
+					// 把参数封装在req中进行传递
+					req.user = user
 					next()
 				}
 				else{
@@ -81,6 +83,8 @@ router.get('/usercenter',(req,res,next)=>{
 			res.redirect('/login')
 		}
 	},(req,res)=>{
-		res.send('用户中心')
+		console.log('继续渲染')
+		console.log(req.user)
+		res.render('users/userinfo',{user:req.user})
 })
 module.exports = router
