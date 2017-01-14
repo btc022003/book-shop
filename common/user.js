@@ -45,6 +45,30 @@ class UserDal extends DBBase{
             console.log(err)
         })
     }
+
+    /**
+     * 用户登录处理
+     * @param  {[type]}   mobile   手机号
+     * @param  {Function} callback 返回Object对象{isOK:xx,user:xx}
+     * @return {[type]}            [description]
+     */
+    userLogin(mobile,callback){
+        this.model.findOne({mobile:mobile})
+            .then(res=>{
+                //判断用户是否存在
+                console.log(res)
+                if(res){
+                    callback({isOK:true,user:res})
+                }
+                else{
+                    callback({isOK:false})
+                }
+            })
+            .catch(err=>{
+                console.log(err)
+                callback({isOK:false})
+            })
+    }
 }
 
 module.exports = {

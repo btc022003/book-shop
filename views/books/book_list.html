@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>书籍分类列表</title>
-    <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="/admin/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/weui.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/pace-theme-center-atom.min.css">
+    {{include '../shared/_header'}}
 </head>
 
 <body>
@@ -19,34 +15,17 @@
                 <div class="weui-btn weui-btn_primary" id="btnLoadMore">加载更多</div>
             </div>
         </div>
-        <div class="weui-tabbar">
-            <a href="javascript:;" class="weui-tabbar__item weui-bar__item_on">
-                <span style="display: inline-block;position: relative;">
-                        <!-- <img src="./images/icon_tabbar.png" alt="" class="weui-tabbar__icon"> -->
-                        <i class="fa fa-book weui-tabbar__icon"></i>
-                        <!-- <span class="weui-badge" style="position: absolute;top: -2px;right: -13px;">8</span> -->
-                </span>
-                <p class="weui-tabbar__label">书籍列表</p>
-            </a>
-            <a href="javascript:;" class="weui-tabbar__item">
-                <span style="display: inline-block;position: relative;">
-                        <i class="fa fa-user weui-tabbar__icon"></i>
-                    </span>
-                <p class="weui-tabbar__label">我</p>
-            </a>
-        </div>
+        {{include '../shared/_footer_nav'}}
     </div>
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/pace.min.js"></script>
-    <script type="text/javascript" src="/js/common.js"></script>
+    {{include '../shared/_bottom'}}
     <script type="text/javascript">
-        var _type = '{{type}}'
-        var _pageIndex = 1
-        var _pageCOunt = 1
+        var _type = '{{type}}' //当前的分类
+        var _pageIndex = 1  //当前页码
+        var _pageCount = 1  //总页数
         function loadData(){
             $.getJSON(`/books/list.json/${_type}/${_pageIndex}`,function(res){
                 if(res.status=="y"){
-                    _pageCOunt = res.data.pageCount
+                    _pageCount = res.data.pageCount
                     var strHtml = ''
                     res.data.res.forEach(function(item){
                         strHtml += `<a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
@@ -64,9 +43,10 @@
             })
         }
         loadData()
+        //为加载更多按钮添加click事件
         $('#btnLoadMore').click(function(){
-            _pageIndex = _pageIndex+1
-            if(_pageCOunt<=_pageIndex){
+            _pageIndex = _pageIndex+1 //当前页码加1
+            if(_pageCount<_pageIndex){
                 $(this).text('没有更多数据...')
                 return
             }

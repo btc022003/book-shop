@@ -19,7 +19,7 @@ class DBBase{
      * @return {[type]}            [description]
      */
     getDataByPage(page,filter,callback){
-        var pageSize = 3 //每页显示的数量
+        var pageSize = global.pageSize //每页显示的数量
         this.model.count(filter) //统计记录数量
             .then(count=>{
                 // console.log(count)
@@ -34,7 +34,6 @@ class DBBase{
                 this.model.find(filter) //根据条件进行查询
                     .limit(pageSize)
                     .skip(pageSize*(page-1))
-                    .populate('book_type')
                     .sort({_id:-1})
                     .then(res=>{
                         //返回两个数据 总页数和查询结果

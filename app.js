@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser')
 
 //全局加载tools模块
 global.tools = require('./common/tools')
+global.pageSize = 10 //分页显示的记录数量
 
 var app = express()
 

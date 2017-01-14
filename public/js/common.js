@@ -6,3 +6,12 @@ $.ajaxSetup({
 		// console.log(cmp)
 	}
 })
+$(function(){
+	var href = window.location.href
+	if(href.indexOf('/books/')>-1){
+		$('.weui-tabbar__item').eq(0).addClass('weui-bar__item_on')
+	}
+	else{
+		$('.weui-tabbar__item').eq(1).addClass('weui-bar__item_on')
+	}
+})
