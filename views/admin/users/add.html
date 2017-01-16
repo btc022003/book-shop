@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>分类信息新增</title>
+	<title>用户信息新增</title>
 	{{include '../shared/_common_top'}}
 </head>
 <body class="gray-bg">
 	<div class="wrapper wrapper-content animated fadeInRight">
 		<div class="panel panel-info">
 			<div class="panel-heading">
-				<h3 class="panel-title">分类信息新增</h3>
+				<h3 class="panel-title">用户信息新增</h3>
 			</div>
 			<div class="panel-body">
 				<form method="post" action="/admin/users/create" class="form-horizontal" role="form">
@@ -55,5 +55,19 @@
 		</div>
 	</div>
 	{{include '../shared/_common_bottom'}}
+	<script type="text/javascript">
+		$('.panel-body form').validate({
+			rules:{
+				mobile:{
+					isMobile:true //使用手机号码验证规则
+				}
+			},
+			messages:{
+				mobile:{
+					isMobile:"手机号码格式错误"
+				}
+			}
+		})
+	</script>
 </body>
 </html>
