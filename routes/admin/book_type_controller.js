@@ -66,4 +66,12 @@ router.post('/update/:id',(req,res)=>{
 	})
 })
 
+//验证编码是否已经存在
+router.get('/validate_code',(req,res)=>{
+	//获取通过url传递的参数 书籍编码信息
+	db.validateCode(req.query.code,isOK=>{
+		res.send(isOK)
+	})
+})
+
 module.exports = router

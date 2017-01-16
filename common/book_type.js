@@ -29,6 +29,28 @@ class BookTypeDal extends DBBase{
             console.log(err)
         })
     }
+
+    /**
+     * 验证code是否已经存砸
+     * @param  {[type]}   code     书籍编码
+     * @param  {Function} callback 回调函数
+     * @return {[type]}            [description]
+     */
+    validateCode(code,callback){
+        this.model.count({
+            code:code
+        }).then(res=>{
+            if(res>0){//表示当前code已经存在
+                callback(false)
+            }
+            else{
+                callback(true)
+            }
+        }).catch(err=>{
+            console.log(err)
+            callback(false)
+        })
+    }
 }
 
 module.exports = {

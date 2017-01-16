@@ -49,5 +49,24 @@
 		</div>
 	</div>
 	{{include '../shared/_common_bottom'}}
+	<script type="text/javascript">
+		$('.panel-body form').validate({
+			rules:{
+				name:{
+					required:true,
+					minlength:2
+				},
+				code:{
+					required:true,
+					remote:'/admin/book_type/validate_code' //远程ajax验证,发送get请求,传递参数code=输入值
+				}
+			},
+			messages:{
+				code:{
+					remote:'书籍分类编码已存在'
+				}
+			}
+		})
+	</script>
 </body>
 </html>
