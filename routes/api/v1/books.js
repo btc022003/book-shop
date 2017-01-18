@@ -1,14 +1,23 @@
 var express = require('express')
 var router = express.Router()
+var BookDal = require('../../../common/book').BookDal
+var bookDal = new BookDal()
 
 router.get('/get_data',(req,res)=>{
-	setTimeout(function(){
+	bookDal.getData({type:"ertong"},books=>{
 		res.json({
 			status:'y',
 			msg:'请求成功',
-			data:[]
+			data:books
 		})
-	},5000)
+	})
+	// setTimeout(function(){
+	// 	res.json({
+	// 		status:'y',
+	// 		msg:'请求成功',
+	// 		data:[]
+	// 	})
+	// },5000)
 })
 
 module.exports = router
