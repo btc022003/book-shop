@@ -17,6 +17,13 @@
 
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css?v=4.1.0" rel="stylesheet">
+    <!-- 加上此句话解决360浏览器打开页面后不停刷新的问题
+        360打开后会选择兼容模式打开页面,从而使ie内核判断小于9的表达式为true,导致行代码中判断为ie小于9的时候的无限刷新生效
+            加上此段代码<meta name="renderer" content="webkit">
+            或者删除<meta http-equiv="refresh" content="0;ie.html" />
+     -->
+    <!-- 使用chrome内核渲染 -->
+    <meta name="renderer" content="webkit">
     <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html" />
     <![endif]-->
