@@ -96,11 +96,16 @@ app.use('/admin/users',require('./routes/admin/users_controller'))
 app.use('/',require('./routes/users'))
 app.use('/books',require('./routes/books'))
 
+
 // 允许api控制器部分代码调用的时候可以进行跨域访问
 app.all('/api/*',(req,res,next)=>{
 	res.header("Access-Control-Allow-Origin", "*")
+	res.header("Access-Control-Allow-Headers", "X-Requested-With,Content-Type")
+	res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS")
+    res.header("Content-Type", "application/json;charset=utf-8");
 	next()
 })
+
 app.use('/api/v1/books',require('./routes/api/v1/books'))
 
 app.listen('3000',()=>{
