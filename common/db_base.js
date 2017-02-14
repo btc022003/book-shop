@@ -70,7 +70,7 @@ class DBBase{
     save(m,callback){
         var data = new this.model(m)
         data.save()
-            .then(callback(true))
+            .then(callback(true,data))
             .catch(err=>{
                 console.log(err)
             })
