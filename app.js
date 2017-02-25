@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser')
 
 //全局加载tools模块
 global.tools = require('./common/tools')
-global.pageSize = 10 //分页显示的记录数量
+global.pageSize = 2 //分页显示的记录数量
 
 var app = express()
 
@@ -105,9 +105,17 @@ app.all('/api/*',(req,res,next)=>{
     res.header("Content-Type", "application/json;charset=utf-8");
 	next()
 })
-
 app.use('/api/v1/books',require('./routes/api/v1/books'))
-
+app.use('/api/v1/food_type',require('./routes/api/v1/food_type'))
+app.use('/api/v1/food',require('./routes/api/v1/food'))
+app.all('/common/*',(req,res,next)=>{
+	res.header("Access-Control-Allow-Origin", "*")
+	res.header("Access-Control-Allow-Headers", "X-Requested-With,Content-Type")
+	res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS")
+    res.header("Content-Type", "application/json;charset=utf-8");
+	next()
+})
+app.use('/common',require('./routes/common/common'))
 app.listen('3000',()=>{
 	console.log('服务器运行于3000端口...')
 })

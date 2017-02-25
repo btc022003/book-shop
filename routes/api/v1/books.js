@@ -21,6 +21,9 @@ router.get('/',(req,res)=>{
 //获取分页数量
 router.get('/get_page_count',(req,res)=>{
     var page = 1//页码
+    if(req.query.page){
+        page = Number(req.query.page)
+    }
     bookDal.getDataByPage(page,{type:req.query.type},data=>{
         res.json(data)
     })
