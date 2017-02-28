@@ -9,7 +9,7 @@ var foodSchema = new Schema({
     img:String,
     type:{
     	type:Schema.Types.ObjectId,
-    	res:'food_type'
+    	ref:'food_type'
     },
     price:Number,
     description:String

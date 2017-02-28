@@ -14,7 +14,10 @@ router.get('/',(req,res)=>{
         page = Number(req.query.page)
     }
     bookDal.getDataByPage(page,{type:req.query.type},data=>{
-        res.json(data.res)
+        setTimeout(function(){
+            res.json(data.res)
+        },5000)
+        // res.json(data.res)
     })
 })
 
