@@ -3,12 +3,15 @@
 项目目录介绍
 ```
 ./spider 用于抓取书籍数据存储在本地数据库中
+前台展示使用了weui实现
 ```
 
 [管理后台预览地址](http://express.lixuanqi.com/admin/login.html)
 
 用户名:admin  
 密码:admin  
+
+[前台展示地址](http://express.lixuanqi.com/books/types)
 
 #### 20170112需要实现以下功能
 1. 前台用户注册
