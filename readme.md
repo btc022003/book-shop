@@ -1,9 +1,14 @@
-> 通过express框架实现在线图书商城,数据存储在mongodb数据库中
+> 通过express框架实现在线图书商城,数据存储在mongodb数据库中。数据使用从当当网抓取来
 
 项目目录介绍
 ```
 ./spider 用于抓取书籍数据存储在本地数据库中
 ```
+
+[管理后台预览地址](http://express.lixuanqi.com/admin/login.html)
+
+用户名:admin  
+密码:admin  
 
 #### 20170112需要实现以下功能
 1. 前台用户注册
