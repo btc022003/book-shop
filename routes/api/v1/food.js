@@ -9,7 +9,11 @@ router.get('/',(req,res)=>{
 	if(req.query.page){
 		page = Number(req.query.page)
 	}
-	foodDal.getDataByPage(page,{},data=>{
+	var filter = {}
+	if(req.query.type){
+		filter.type = req.query.type
+	}
+	foodDal.getDataByPage(page,filter,data=>{
 		res.json({status:"y",msg:'获取分页数据成功',data:data})
 	})
 })

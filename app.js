@@ -9,6 +9,21 @@ global.pageSize = 2 //分页显示的记录数量
 
 var app = express()
 
+var fs = require('fs')
+////https请求
+var http = require('http')
+var https = require('https')
+var privateKey  = fs.readFileSync('./crt/private.pem', 'utf8')
+var certificate = fs.readFileSync('./crt/file.crt', 'utf8')
+var credentials = {key: privateKey, cert: certificate}
+
+var httpServer = http.createServer(app)
+var httpsServer = https.createServer(credentials, app)
+var PORT = 3000
+var SSLPORT = 3001
+
+
+
 app.use(log('dev')) //终端日志输出
 
 app.use(cookieParser()) //使用cookie-parser中间件
@@ -116,6 +131,13 @@ app.all('/common/*',(req,res,next)=>{
 	next()
 })
 app.use('/common',require('./routes/common/common'))
-app.listen('3000',()=>{
-	console.log('服务器运行于3000端口...')
-})
+//app.listen('3000',()=>{
+//    console.log('服务器运行于3000端口...')
+//})
+
+httpServer.listen(PORT, function() {
+    console.log('HTTP Server is running on: http://localhost:%s', PORT);
+});
+httpsServer.listen(SSLPORT, function() {
+    console.log('HTTPS Server is running on: https://localhost:%s', SSLPORT);
+});
