@@ -107,6 +107,7 @@ app.use('/admin/book',require('./routes/admin/book_controller'))
 app.use('/admin/book_type',require('./routes/admin/book_type_controller'))
 app.use('/admin/users',require('./routes/admin/users_controller'))
 app.use('/admin/blog_type',require('./routes/admin/blog_type_controller'))
+app.use('/admin/blog',require('./routes/admin/blog_controller'))
 //引入前台用户部分
 app.use('/',require('./routes/users'))
 app.use('/books',require('./routes/books'))
@@ -134,7 +135,7 @@ app.use('/common',require('./routes/common/common'))
 //app.listen('3000',()=>{
 //    console.log('服务器运行于3000端口...')
 //})
-
+app.use('/common/kindeditor', require('./routes/common/kindeditor/index'));
 httpServer.listen(PORT, function() {
     console.log('HTTP Server is running on: http://localhost:%s', PORT);
 });

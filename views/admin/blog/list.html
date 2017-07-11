@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>blog信息列表</title>
+    {{include '../shared/_common_top'}}
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>书籍信息管理</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <!-- 此表单没有指定action和method
+						默认提交到当前页面
+						默认使用get方式提交
+						 -->
+                                <form class="form-inline" id="mainForm" action="/admin/blog/list">
+                                    <div class="form-group">
+                                        <label>文章标题</label>
+                                        <input type="text" class="form-control" name="blogName" value="{{query.blogName}}" placeholder="请输入文章标题进行查找">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary fa fa-search">查询</button>
+                                </form>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="">
+                                    <a href="/admin/blog/add" class="btn btn-danger">添加</a>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>图片</th>
+                                    <th>标题</th>
+                                    <th>分类</th>
+                                    <th>简介</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{each list}}
+                                <tr>
+                                    <td>{{$index+1}}</td>
+                                    <td><img src="{{$value.img}}" style="width: 80px;"></td>
+                                    <td>{{$value.title}}</td>
+                                    <td>{{$value.type.name}}</td>
+                                    <td>{{$value.description}}</td>
+                                    <td>
+                                        <i onclick='dalDel("{{$value.id}}")' class="btn btn-sm btn-default fa fa-trash"></i>
+                                        <!-- fontawesome字体图标
+									http://fontawesome.io/
+								 -->
+                                        <a href="/admin/blog/edit/{{$value.id}}"><i class="fa fa-pencil btn btn-sm btn-default"></i></a>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="dataTables_info">共{{pageCount}}页数据</div>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="dataTables_paginate paging_simple_numbers">
+                                    <ul class="pagination">
+                                        {{if pageIndex>1}}
+                                        <li class="paginate_button previous">
+                                            <a href="/admin/blog/list/{{pageIndex-1}}">上一页</a>
+                                        </li>
+                                        {{else}}
+                                        <li class="paginate_button previous disabled">
+                                            <a href="#">上一页</a>
+                                        </li>
+                                        {{/if}}
+                                        {{each pages}}
+                                        {{if $value==pageIndex}}
+                                        <li class="paginate_button active">
+                                            <a href="#">{{$value}}</a>
+                                        </li>
+                                        {{else}}
+                                        <li class="paginate_button">
+                                            <a href="/admin/blog/list/{{$value}}">{{$value}}</a>
+                                        </li>
+                                        {{/if}}
+                                        {{/each}}
+                                        {{if pageIndex<pageCount}}
+                                        <li class="paginate_button next">
+                                            <a href="/admin/blog/list/{{pageIndex+1}}">下一页</a>
+                                        </li>
+                                        {{else}}
+                                        <li class="paginate_button next disabled">
+                                            <a href="#">下一页</a>
+                                        </li>
+                                        {{/if}}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- 在页面上创建一个隐藏的表单做删除时使用 -->
+    <form action="/admin/blog/del" id="delForm" method="post">
+        <input type="hidden" name="id" id="delID">
+    </form>
+    <!-- <script type="text/javascript" src="http://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+	{{include '../shared/_common_bottom'}}
+    <script>
+    function dalDel(id) {
+        // 通过confirm弹出提示
+        if (confirm('是否确认删除此项?')) {
+            // alert(id)
+            // 可以通过ajax实现删除
+            // $.ajax(...
+            $('#delID').val(id)
+            $('#delForm').submit() //触发表单提交事件
+        }
+    }
+    </script>
+</body>
+
+</html>
