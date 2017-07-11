@@ -76,4 +76,14 @@ router.delete('/:id',(req,res)=>{
         res.json({})
     })
 })
+
+/**
+ * 使用multer获取body中传递的参数
+ */
+var multer  = require('multer')
+var upload = multer()
+router.post('/sub/form_data',upload.array(),(req,res)=>{
+    console.log(req.body)
+    res.json(req.body)
+})
 module.exports = router

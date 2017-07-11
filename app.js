@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser')
 
 //全局加载tools模块
 global.tools = require('./common/tools')
-global.pageSize = 2 //分页显示的记录数量
+global.pageSize = 10 //分页显示的记录数量
 
 var app = express()
 
@@ -106,7 +106,7 @@ app.get('/admin/main',(req,res)=>{
 app.use('/admin/book',require('./routes/admin/book_controller'))
 app.use('/admin/book_type',require('./routes/admin/book_type_controller'))
 app.use('/admin/users',require('./routes/admin/users_controller'))
-
+app.use('/admin/blog_type',require('./routes/admin/blog_type_controller'))
 //引入前台用户部分
 app.use('/',require('./routes/users'))
 app.use('/books',require('./routes/books'))
