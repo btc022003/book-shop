@@ -36,9 +36,12 @@ var bookList = [{
     pageCount:'1'
 }]
 bookList.forEach(item=>{
-    getBooks(item.code,item.url,item.pageCount)
+    //getBooks(item.code,item.url,item.pageCount)
 })
-
+Book.find({})
+    .then(res=>{
+        console.log(res)
+    })
 /**
  * 获取不同的分类的书籍信息
  *

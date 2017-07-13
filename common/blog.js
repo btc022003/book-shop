@@ -56,7 +56,10 @@ class BlogDal extends DBBase{
                     })
                     .catch(err=>{
                         console.log(err)
+                        callback({pageCount:0,res:[]})
                     })
+            }).catch(err=>{
+                callback({pageCount:0,res:[]})
             })
     }
 

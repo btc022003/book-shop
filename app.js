@@ -98,6 +98,9 @@ app.all('/admin/*',(req,res,next)=>{
 	}
 	// next()
 })
+app.get('/admin',(req,res)=>{
+	res.redirect('/admin/main')
+})
 //渲染管理后台首页
 app.get('/admin/main',(req,res)=>{
 	res.render('admin/main')
@@ -124,6 +127,8 @@ app.all('/api/*',(req,res,next)=>{
 app.use('/api/v1/books',require('./routes/api/v1/books'))
 app.use('/api/v1/food_type',require('./routes/api/v1/food_type'))
 app.use('/api/v1/food',require('./routes/api/v1/food'))
+app.use('/api/v1/blog_type',require('./routes/api/v1/blog_type'))
+app.use('/api/v1/blog',require('./routes/api/v1/blog'))
 app.all('/common/*',(req,res,next)=>{
 	res.header("Access-Control-Allow-Origin", "*")
 	res.header("Access-Control-Allow-Headers", "X-Requested-With,Content-Type")
