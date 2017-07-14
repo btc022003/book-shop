@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
 mongoose.Promise = global.Promise
-mongoose.connect("mongodb://localhost:/book_shop")//连接数据库
+mongoose.connect("mongodb://localhost/book_shop")//连接数据库
 var Schema = mongoose.Schema
 //创建book集合的数据结构
 var bookSchema = new Schema({
